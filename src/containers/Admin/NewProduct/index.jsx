@@ -17,7 +17,7 @@ const schema = yup.object({
     file: yup.mixed().test('required', 'Escolha um arquivo para continuar', (value) => {
         return value && value.length > 0;
     }).test('fileSize', 'Carregue arquivos até 3MB', (value) => {
-        return value && value.length > 0 && value[0].size <= 30000;
+        return value && value.length > 0 && value[0].size <= 3 * 1024 * 1024;
     })
         .test('type', 'Carregue apenas imagens PNG ou JPEG', (value) => {
             return (value && value.length > 0 && (value[0].type === 'image/jpeg' || value[0].type === 'image/png')

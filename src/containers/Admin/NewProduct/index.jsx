@@ -7,7 +7,7 @@ import * as yup from "yup"
 import { toast } from "react-toastify";
 
 import { api } from "../../../services/api";
-import { Container, Form, InputGroup, Label, Input, LabelUpload, Select, SubmitButton, ErrorMessage, ContainerCheckbox,} from "./styles";
+import { Container, Form, InputGroup, Label, Input, LabelUpload, Select, SubmitButton, ErrorMessage, ContainerCheckbox, } from "./styles";
 
 const schema = yup.object({
     name: yup.string().required('Digite o nome do produto'),
@@ -56,7 +56,7 @@ export function NewProduct() {
         const productFormData = new FormData();
 
         productFormData.append('name', data.name);
-        productFormData.append('price', data.price * 100);
+        productFormData.append('price', data.price);
         productFormData.append('category_id', data.category.id);
         productFormData.append('file', data.file[0]);
         productFormData.append('offer', data.offer);
@@ -83,7 +83,12 @@ export function NewProduct() {
 
                 <InputGroup>
                     <Label>Preço</Label>
-                    <Input type="number" {...register("price")} />
+                    <Input
+                        type="number"
+                        step="0.01"
+                        min="0"
+
+                        {...register("price", { valueAsNumber: true })} />
                     <ErrorMessage>{errors?.price?.message}</ErrorMessage>
                 </InputGroup>
 
